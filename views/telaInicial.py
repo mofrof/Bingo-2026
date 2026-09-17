@@ -3,10 +3,12 @@ import flet as ft
 def criarListaBotoes():
     listaModuloNumero = []
     for i in range(1,76):
-        bordaEstilo = ft.BorderSide(width=1, color=ft.Colors.GREEN)
+        bordaEstilo = ft.BorderSide(width=1, color=ft.Colors.WHITE,)
         estilo = ft.ButtonStyle(color=ft.Colors.WHITE,
-                                alignment=ft.Alignment.CENTER,
-                                side=bordaEstilo)
+                                side=bordaEstilo,
+                                shape=ft.CircleBorder(),
+                                padding=0
+                                )
         
         botao = ft.Button(content=f"{i}", style = estilo)
         listaModuloNumero.append(botao)
@@ -19,10 +21,12 @@ def ladoRegistroNumero():
 
     grideNumerosSorteados = ft.GridView(
                 expand=True,
-                max_extent=50,
+                padding=5,
+                max_extent=60,
                 child_aspect_ratio=1.0,
-                spacing=20,
-                run_spacing=20,
+                spacing=5,
+                run_spacing=5,
+                runs_count=10,
                 controls=listaNumeros
                 )
 
