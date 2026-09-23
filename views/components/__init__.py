@@ -1,0 +1,1 @@
+from views.components.cartela import criarCartela

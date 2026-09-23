@@ -1,20 +1,18 @@
 import flet as ft
-import views
+import views.screens as sc
 
 def criarMenu():
     menu1 = ft.Tab(label="Tela Inicial", icon= ft.Icons.HOME_FILLED)
     menu2 = ft.Tab(label="Cadastrar Cartelas", icon= ft.Icons.NOTE_ADD)
-    menu3 = ft.Tab(label="Alterar Cartelas", icon= ft.Icons.EDIT_NOTE_OUTLINED)
-    menu4 = ft.Tab(label="Deletar Cartelas", icon= ft.Icons.DELETE)
+    menu3 = ft.Tab(label="Gerenciar Cartelas", icon= ft.Icons.EDIT_NOTE_OUTLINED)
 
-    estruturaMenu = ft.TabBar(tabs=[menu1,menu2,menu3, menu4])
+    estruturaMenu = ft.TabBar(tabs=[menu1,menu2,menu3])
 
-    tela1 = views.telaInicial()
-    tela2 = views.telaCadastroCartela()
-    tela3 = ft.Text("Alterar Cartelas")
-    tela4 = ft.Text("Deletar Cartelas")
+    tela1 = sc.telaInicial()
+    tela2 = sc.telaCadastroCartela()
+    tela3 = sc.telaGerenciaCartelas()
 
-    estruturaPagina = ft.TabBarView(controls=[tela1, tela2, tela3, tela4],
+    estruturaPagina = ft.TabBarView(controls=[tela1, tela2, tela3,],
                                     expand=True)
 
     estruturaMenuPagina = ft.Column(controls=[estruturaMenu,estruturaPagina],
