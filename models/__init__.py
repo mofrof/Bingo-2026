@@ -1,0 +1,1 @@
+from models.Cartela import verificarValorDigitado, cadastrarCartela

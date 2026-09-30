@@ -1,6 +1,7 @@
 import flet as ft
 import views.components.cartela as ct
 
+
 def telaGerenciaCartelas():
     cartelas = ft.Container(content=ft.Text("Lista Cartelas", size=25), alignment=ft.Alignment.CENTER)
 
@@ -14,8 +15,13 @@ def telaGerenciaCartelas():
     listaNumerosN = [39,38,44,34]
     listaNumerosG = [57,58,46,52,54]
     listaNumerosO = [67,70,64,75,74]
+    codigo = 2600
 
-    cartelaModelo = ct.criarCartela(listaNumerosB,listaNumerosI,listaNumerosN,listaNumerosG,listaNumerosO)
+    cartelaModelo = ct.criarCartela(codigo,listaNumerosB,
+                                    listaNumerosI,
+                                    listaNumerosN,
+                                    listaNumerosG,
+                                    listaNumerosO)
 
     cartelaModelo.content.content.controls.append(linhaButoes)
 

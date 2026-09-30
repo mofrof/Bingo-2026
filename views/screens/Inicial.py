@@ -46,8 +46,9 @@ def ladoCartelasCadastradas():
     listaNumerosN = [39,38,44,34]
     listaNumerosG = [57,58,46,52,54]
     listaNumerosO = [67,70,64,75,74]
+    codigo = 2688
 
-    cartelaModelo = ct.criarCartela(listaNumerosB,listaNumerosI,listaNumerosN,listaNumerosG,listaNumerosO)
+    cartelaModelo = ct.criarCartela(codigo,listaNumerosB,listaNumerosI,listaNumerosN,listaNumerosG,listaNumerosO)
 
     colunaCartelas = ft.Container(content=ft.Column(controls=[cartelas, cartelaModelo, cartelaModelo, cartelaModelo],
                                                     horizontal_alignment=ft.CrossAxisAlignment.STRETCH,
