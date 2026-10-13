@@ -36,15 +36,15 @@ def telaCadastroCartela():
 
     cartelaBingo = ft.Row(controls=listaLinha, expand=True, alignment=ft.MainAxisAlignment.CENTER)
 
-    textoErro = ft.Text("", size=25, color=ft.Colors.RED)
+    textoMensagens = ft.Text("", size=25)
 
     button = ft.Button(content=ft.Text("Cadastrar Cartela", size=25, weight=ft.FontWeight.BOLD),
                        align=ft.Alignment.BOTTOM_RIGHT,
                        height=50,
                        on_click=models.cadastrarCartela,
-                       data=[listaLinha,codCartelaTextFild,textoErro])
+                       data=[listaLinha,codCartelaTextFild,textoMensagens])
 
-    linhaButao = ft.Row(controls=[textoErro, button], alignment=ft.MainAxisAlignment.SPACE_BETWEEN, margin=0)
+    linhaButao = ft.Row(controls=[textoMensagens, button], alignment=ft.MainAxisAlignment.SPACE_BETWEEN, margin=0)
 
     conteudo = ft.Column(controls=[titulo, codCartelaTextFild ,cartelaBingo, linhaButao], horizontal_alignment=ft.CrossAxisAlignment.STRETCH, margin=0)
 

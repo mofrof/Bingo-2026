@@ -1,5 +1,6 @@
 import flet as ft
 import views.components.cartela as ct
+import models.Cartela as modelCt
 
 def criarListaBotoes():
     listaModuloNumero = []
@@ -39,18 +40,16 @@ def ladoRegistroNumero():
     return colunaResultados
 
 def ladoCartelasCadastradas():
+    listElementosColunaCartela = []
     cartelas = ft.Container(content=ft.Text("Cartelas Registradas", size=25), alignment=ft.Alignment.CENTER)
+    listElementosColunaCartela.append(cartelas)
 
-    listaNumerosB = [7,13,3,8,15]
-    listaNumerosI = [24,30,19,16,18]
-    listaNumerosN = [39,38,44,34]
-    listaNumerosG = [57,58,46,52,54]
-    listaNumerosO = [67,70,64,75,74]
-    codigo = 2688
-
-    cartelaModelo = ct.criarCartela(codigo,listaNumerosB,listaNumerosI,listaNumerosN,listaNumerosG,listaNumerosO)
-
-    colunaCartelas = ft.Container(content=ft.Column(controls=[cartelas, cartelaModelo, cartelaModelo, cartelaModelo],
+    listaCartelas = modelCt.pegarListaCartelas()
+    for cartela in listaCartelas:
+        cartelaModelo = ct.criarCartela(cartela['codigo'],cartela['B'],cartela['I'],cartela['N'],cartela['G'],cartela['O'])
+        listElementosColunaCartela.append(cartelaModelo)
+    
+    colunaCartelas = ft.Container(content=ft.Column(controls=listElementosColunaCartela,
                                                     horizontal_alignment=ft.CrossAxisAlignment.STRETCH,
                                                     scroll=ft.ScrollMode.AUTO),
                                 expand=True)

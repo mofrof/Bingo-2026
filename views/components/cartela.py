@@ -32,7 +32,7 @@ def criarCartela(codigo,listaNumerosB, listaNumerosI, listaNumerosN, listaNumero
                                                       criarModeloNumero(listaNumerosG[numLinha]),
                                                       criarModeloNumero(listaNumerosO[numLinha])],
                                             alignment=ft.MainAxisAlignment.SPACE_BETWEEN),alignment=ft.Alignment.CENTER)
-        if(numLinha == 2):
+        elif(numLinha == 2):
             linhaGrid = ft.Container(ft.Row(controls=[criarModeloNumero(listaNumerosB[numLinha]),
                                                               criarModeloNumero(listaNumerosI[numLinha]),
                                                               iconSistema,

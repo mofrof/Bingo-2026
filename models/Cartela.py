@@ -1,5 +1,5 @@
 import flet as ft
-import models.bancoDados
+import models.bancoDados 
 
 def verificarNumeroPorLetra(numero:int, coordenada:str):
     coluna = coordenada.split(":")[0]
@@ -28,6 +28,7 @@ def mensagemErro(coordenada:str):
     elif(coluna == "4"):
         return "Número aceitos: 61-75"
 
+# Função do pacote
 def verificarValorDigitado(e: ft.Event[ft.TextField]):
     try:
         valor = int(e.control.value)
@@ -41,6 +42,8 @@ def verificarValorDigitado(e: ft.Event[ft.TextField]):
     except:
         e.control.label = "Somente números"
         e.control.border_color = ft.Colors.RED
+
+    e.page.update()
 
 def verificarValorValido(valor, coordenada):
     try:
@@ -80,15 +83,37 @@ def verificaEAlertaSeTemCamposVazios(listaColunas):
                         item.label = "Não pode ficar vazio"
         return possuiVazios
 
+# Função do pacote
 def cadastrarCartela(e: ft.Event[ft.Button]):
     listaColunas = e.control.data[0]
-    codigoValido = e.control.data[1].content.value != ""
+    codigo = e.control.data[1].content.value
+    codigoValido = codigo != ""
+    textoMensagem = e.control.data[2]
+
+    listaB = []
+    listaI = []
+    listaN = []
+    listaG = []
+    listaO = []
 
     contadorCorretos = 0
+    contadorColunas = 0
+
     for coluna in listaColunas:
         for item in coluna.controls:
             if(item.data != None and verificarValorValido(item.value, item.data)):
+                if(contadorColunas == 0):
+                    listaB.append(item.value)
+                elif(contadorColunas == 1):
+                    listaI.append(item.value)
+                elif(contadorColunas == 2):
+                    listaN.append(item.value)
+                elif(contadorColunas == 3):
+                    listaG.append(item.value)
+                elif(contadorColunas == 4):
+                    listaO.append(item.value)
                 contadorCorretos += 1
+        contadorColunas += 1
 
     possuiValoresDuplicados = verificaEAlertaSeTemCamposComValoresDuplicados(listaColunas)
     possuiCamposVazios = verificaEAlertaSeTemCamposVazios(listaColunas)
@@ -96,7 +121,19 @@ def cadastrarCartela(e: ft.Event[ft.Button]):
     if(not codigoValido):
         e.control.data[1].content.border_color = ft.Colors.YELLOW
         e.control.data[1].content.label = "Não pode ficar vazio"
+    else:
+        e.control.data[1].content.border_color = ft.Colors.GREEN
+        e.control.data[1].content.label = ""
 
-
+    #criar Verificação se o código ja esta cadastrado
     if(contadorCorretos == 24 and codigoValido and not possuiValoresDuplicados and not possuiCamposVazios):
-        models.bancoDados.adicionarCartela(0,[],[],[],[],[],[])
+        models.bancoDados.adicionarCartela(codigo,listaB,listaI,listaN,listaG,listaO)
+        textoMensagem.color = ft.Colors.GREEN
+        textoMensagem.value = f"Cartela {codigo} cadastrado com suscesso"
+        #limpar campos
+
+    e.page.update()
+
+def pegarListaCartelas():
+    return models.bancoDados.pegarListaCartelas()
+

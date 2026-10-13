@@ -1,31 +1,23 @@
 import flet as ft
 import views.components.cartela as ct
-
+import models.Cartela as modelCt
 
 def telaGerenciaCartelas():
+    listElementosColunaCartela = []
     cartelas = ft.Container(content=ft.Text("Lista Cartelas", size=25), alignment=ft.Alignment.CENTER)
+    listElementosColunaCartela.append(cartelas)
 
     butaoAlterar = ft.Button(content="Alterar", icon=ft.Icons.EDIT)
     butaoRemover = ft.Button(content="Remover",icon=ft.Icons.REMOVE)
     linhaButoes = ft.Row(controls=[butaoAlterar,butaoRemover],expand=True, alignment=ft.MainAxisAlignment.END)
-    # container = ft.Container(content=linhaButoes, expand=True, bgcolor="RED")
 
-    listaNumerosB = [7,13,3,8,15]
-    listaNumerosI = [24,30,19,16,18]
-    listaNumerosN = [39,38,44,34]
-    listaNumerosG = [57,58,46,52,54]
-    listaNumerosO = [67,70,64,75,74]
-    codigo = 2600
+    listaCartelas = modelCt.pegarListaCartelas()
+    for cartela in listaCartelas:
+        cartelaModelo = ct.criarCartela(cartela['codigo'],cartela['B'],cartela['I'],cartela['N'],cartela['G'],cartela['O'])
+        cartelaModelo.content.content.controls.append(linhaButoes)
+        listElementosColunaCartela.append(cartelaModelo)
 
-    cartelaModelo = ct.criarCartela(codigo,listaNumerosB,
-                                    listaNumerosI,
-                                    listaNumerosN,
-                                    listaNumerosG,
-                                    listaNumerosO)
-
-    cartelaModelo.content.content.controls.append(linhaButoes)
-
-    colunaCartelas = ft.Container(content=ft.Column(controls=[cartelas, cartelaModelo, cartelaModelo, cartelaModelo],
+    colunaCartelas = ft.Container(content=ft.Column(controls=listElementosColunaCartela,
                                                     horizontal_alignment=ft.CrossAxisAlignment.STRETCH,
                                                     scroll=ft.ScrollMode.AUTO),
                                 expand=True)

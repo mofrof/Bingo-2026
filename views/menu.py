@@ -1,6 +1,17 @@
 import flet as ft
 import views.screens as sc
 
+def ao_mudar_aba(e :ft.Event[ft.Tabs]):
+    indice = e.control.selected_index
+    estrutura_pagina = e.control.data
+    if indice == 0:  # Aba Inicial
+        estrutura_pagina.controls[0] = sc.telaInicial()
+        estrutura_pagina.update()
+    elif indice == 2:  # Aba Gerenciar Cartelas
+        estrutura_pagina.controls[2] = sc.telaGerenciaCartelas()
+        estrutura_pagina.update()
+
+
 def criarMenu():
     menu1 = ft.Tab(label="Tela Inicial", icon= ft.Icons.HOME_FILLED)
     menu2 = ft.Tab(label="Cadastrar Cartelas", icon= ft.Icons.NOTE_ADD)
@@ -20,8 +31,9 @@ def criarMenu():
 
     paginaComMenu = ft.Tabs(length=3,
                            expand=True,
-                           content = estruturaMenuPagina
-                           
+                           content = estruturaMenuPagina,
+                           on_change=ao_mudar_aba,
+                           data= estruturaPagina
     )
 
     return paginaComMenu
