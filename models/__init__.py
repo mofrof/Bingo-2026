@@ -1,1 +1,1 @@
-from models.Cartela import verificarValorDigitado, cadastrarCartela, pegarListaCartelas
+from models.Cartela import verificarValorDigitado, cadastrarCartela, pegarListaCartelas, verificarCondicoesDeExclusao

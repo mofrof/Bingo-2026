@@ -47,8 +47,7 @@ def adicionarCartela(codigo,B,I,N,G,O):
                   }
     listaCartelas.append(cartela)
 
-def removerCartela(codigo):
-    indiceExcluir = encontrar_cartela(codigo)
+def removerCartela(indiceExcluir):
     listaCartelas.pop(indiceExcluir)
 
 def alterarCartela(codigo,B,I,N,G,O):

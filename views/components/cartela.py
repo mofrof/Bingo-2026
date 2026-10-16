@@ -7,7 +7,8 @@ def criarModeloNumero(numero):
                                 expand=True)
         return modeloNumero
 
-def criarCartela(codigo,listaNumerosB, listaNumerosI, listaNumerosN, listaNumerosG, listaNumerosO):
+def criarCartela(codigo,listaNumerosB, listaNumerosI, listaNumerosN,
+                  listaNumerosG, listaNumerosO, linhasButao = None):
     iconSistema = ft.Container(content=ft.Icon(icon=ft.Icons.TABLE_CHART,size=30),
                                 alignment=ft.Alignment.CENTER,
                                 expand=True)
@@ -46,6 +47,9 @@ def criarCartela(codigo,listaNumerosB, listaNumerosI, listaNumerosN, listaNumero
                                                       criarModeloNumero(listaNumerosO[numLinha])],
                                             alignment=ft.MainAxisAlignment.SPACE_BETWEEN),alignment=ft.Alignment.CENTER)
         listaLinhasGrid.append(linhaGrid)
+
+    if linhasButao != None:
+         listaLinhasGrid.append(linhasButao)
 
     gridCartela = ft.Container(ft.Column(controls=listaLinhasGrid, alignment=ft.MainAxisAlignment.SPACE_BETWEEN),alignment=ft.Alignment.CENTER)
 

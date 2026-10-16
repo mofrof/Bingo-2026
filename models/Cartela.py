@@ -1,5 +1,6 @@
 import flet as ft
-import models.bancoDados 
+import models.bancoDados
+import views.menu as menu
 
 def verificarNumeroPorLetra(numero:int, coordenada:str):
     coluna = coordenada.split(":")[0]
@@ -137,3 +138,31 @@ def cadastrarCartela(e: ft.Event[ft.Button]):
 def pegarListaCartelas():
     return models.bancoDados.pegarListaCartelas()
 
+def excluirCartela(e: ft.Event[ft.Button]):
+    indiceEncontrado = e.control.data[0]
+    estruturaPagina = e.control.data[1]
+
+    models.bancoDados.removerCartela(indiceEncontrado)
+    e.page.pop_dialog()
+
+    menu.ao_mudar_aba(estruturaPagina, 2)
+
+def fecharDialogo(e: ft.Event[ft.Button]):
+    e.page.pop_dialog()
+    e.page.update()
+
+def verificarCondicoesDeExclusao(e: ft.Event[ft.Button]):
+    codigoCartela = e.control.data[0]
+    dialogo = e.control.data[1]
+    estruturaPagina = e.control.data[2]
+
+    indiceEncontrado = models.bancoDados.encontrar_cartela(codigoCartela)
+    if indiceEncontrado == None :
+        dialogo.content.value = "Erro: Não foi possivel encontrar a cartela"
+        e.page.show_dialog(dialogo)
+    else:
+        dialogo.content.value = f"Tem certeza que deseja excluir a cartela com Código: {codigoCartela}"
+        dialogo.actions = [ft.Button("Cancelar", on_click=fecharDialogo),
+                           ft.Button("Excluir", on_click=excluirCartela ,data=[indiceEncontrado, estruturaPagina] )]
+        e.page.show_dialog(dialogo)
+    e.page.update()
