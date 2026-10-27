@@ -34,6 +34,13 @@ def encontrar_cartela(codigo):
 
     return None
 
+def pegarCartelaPeloCodigo(codigo):
+    for item in listaCartelas:
+        if item["codigo"] == codigo:
+            return item
+
+    return None
+
 def pegarListaCartelas():
     return listaCartelas
 
@@ -50,9 +57,9 @@ def adicionarCartela(codigo,B,I,N,G,O):
 def removerCartela(indiceExcluir):
     listaCartelas.pop(indiceExcluir)
 
-def alterarCartela(codigo,B,I,N,G,O):
-    indiceAlterar = encontrar_cartela(codigo)
-    cartelaAlterada = {"codigo": codigo,
+def alterarCartela(codigoAntigo,codigoNovo,B,I,N,G,O):
+    indiceAlterar = encontrar_cartela(codigoAntigo)
+    cartelaAlterada = {"codigo": codigoNovo,
                   "B":B,
                   "I":I,
                   "N":N,

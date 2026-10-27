@@ -1,6 +1,13 @@
 import flet as ft
 import views.components.cartela as ct
 import models.Cartela as modelCt
+import views.menu as menu
+
+def abrirTelaAlterar(e: ft.Event[ft.Button]):
+    codigoCartela = e.control.data[0]
+    estruturaPagina = e.control.data[1]
+
+    menu.ao_mudar_aba(estruturaPagina, 3, codigoCartela)
 
 def telaGerenciaCartelas(estruturaPagina=None):
     listElementosColunaCartela = []
@@ -14,7 +21,9 @@ def telaGerenciaCartelas(estruturaPagina=None):
 
     listaCartelas = modelCt.pegarListaCartelas()
     for cartela in listaCartelas:
-        butaoAlterar = ft.Button(content="Alterar", icon=ft.Icons.EDIT)
+        butaoAlterar = ft.Button(content="Alterar", icon=ft.Icons.EDIT,
+                                 on_click=abrirTelaAlterar,
+                                 data=[cartela['codigo'], estruturaPagina])
         butaoRemover = ft.Button(content="Remover",icon=ft.Icons.REMOVE,
                                  on_click=modelCt.verificarCondicoesDeExclusao,
                                  data=[cartela['codigo'],dialogo, estruturaPagina])

@@ -135,6 +135,9 @@ def cadastrarCartela(e: ft.Event[ft.Button]):
 
     e.page.update()
 
+def pegarCartelaDadosCartelaPeloCodigo(codigo):
+    return models.bancoDados.pegarCartelaPeloCodigo(codigo)
+
 def pegarListaCartelas():
     return models.bancoDados.pegarListaCartelas()
 
@@ -165,4 +168,54 @@ def verificarCondicoesDeExclusao(e: ft.Event[ft.Button]):
         dialogo.actions = [ft.Button("Cancelar", on_click=fecharDialogo),
                            ft.Button("Excluir", on_click=excluirCartela ,data=[indiceEncontrado, estruturaPagina] )]
         e.page.show_dialog(dialogo)
+    e.page.update()
+
+def atualizarCartela(e: ft.Event[ft.Button]):
+    listaColunas = e.control.data[0]
+    codigoNovo = e.control.data[1].content.value
+    codigoAntigo = e.control.data[2]
+    codigoValido = codigoNovo != ""
+    textoMensagem = e.control.data[3]
+    estruturaPagina = e.control.data[4]
+
+    listaB = []
+    listaI = []
+    listaN = []
+    listaG = []
+    listaO = []
+
+    contadorCorretos = 0
+    contadorColunas = 0
+
+    for coluna in listaColunas:
+        for item in coluna.controls:
+            if(item.data != None and verificarValorValido(item.value, item.data)):
+                if(contadorColunas == 0):
+                    listaB.append(item.value)
+                elif(contadorColunas == 1):
+                    listaI.append(item.value)
+                elif(contadorColunas == 2):
+                    listaN.append(item.value)
+                elif(contadorColunas == 3):
+                    listaG.append(item.value)
+                elif(contadorColunas == 4):
+                    listaO.append(item.value)
+                contadorCorretos += 1
+        contadorColunas += 1
+
+    possuiValoresDuplicados = verificaEAlertaSeTemCamposComValoresDuplicados(listaColunas)
+    possuiCamposVazios = verificaEAlertaSeTemCamposVazios(listaColunas)
+
+    if(not codigoValido):
+        e.control.data[1].content.border_color = ft.Colors.YELLOW
+        e.control.data[1].content.label = "Não pode ficar vazio"
+    else:
+        e.control.data[1].content.border_color = ft.Colors.GREEN
+        e.control.data[1].content.label = ""
+
+    #criar Verificação se o código ja esta cadastrado
+    if(contadorCorretos == 24 and codigoValido and not possuiValoresDuplicados and not possuiCamposVazios):
+        models.bancoDados.alterarCartela(codigoAntigo, codigoNovo,listaB,listaI,listaN,listaG,listaO)
+        menu.ao_mudar_aba(estruturaPagina, 2)
+
     e.page.update()

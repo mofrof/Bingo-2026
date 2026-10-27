@@ -1,3 +1,4 @@
 from views.screens.cadastroCartela import telaCadastroCartela
 from views.screens.Inicial import telaInicial
 from views.screens.gerenciarCartelas import telaGerenciaCartelas
+from views.screens.alterarCartela import telaAlterarCartelas

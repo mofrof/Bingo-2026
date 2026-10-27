@@ -1,1 +1,1 @@
-from models.bancoDados.cartelaBD import adicionarCartela, alterarCartela, removerCartela, pegarListaCartelas, encontrar_cartela
+from models.bancoDados.cartelaBD import adicionarCartela, alterarCartela, removerCartela, pegarListaCartelas, encontrar_cartela, pegarCartelaPeloCodigo

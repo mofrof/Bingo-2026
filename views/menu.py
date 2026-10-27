@@ -1,7 +1,7 @@
 import flet as ft
 import views.screens as sc
 
-def ao_mudar_aba(e :ft.Event[ft.Tabs],indice = None):
+def ao_mudar_aba(e :ft.Event[ft.Tabs], indice = None, codigo = None):
     if indice == None:
         indice = e.control.selected_index
         estrutura_pagina = e.control.data
@@ -12,7 +12,9 @@ def ao_mudar_aba(e :ft.Event[ft.Tabs],indice = None):
         estrutura_pagina.controls[0] = sc.telaInicial()
     elif indice == 2:
         estrutura_pagina.controls[2] = sc.telaGerenciaCartelas(estrutura_pagina)
-
+    elif indice == 3:
+        estrutura_pagina.controls[2] = sc.telaAlterarCartelas(estrutura_pagina, codigo)
+ 
     estrutura_pagina.update()
 
 def criarMenu():
@@ -21,7 +23,6 @@ def criarMenu():
     menu3 = ft.Tab(label="Gerenciar Cartelas", icon= ft.Icons.EDIT_NOTE_OUTLINED)
 
     estruturaMenu = ft.TabBar(tabs=[menu1,menu2,menu3])
-
     
     tela1 = sc.telaInicial()
     tela2 = sc.telaCadastroCartela()
